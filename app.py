@@ -160,7 +160,7 @@ def handle_seat_inquiry(user_id: str, reply_token: str):
 
     except Exception as e:
         logger.error(f"為 {user_id} 獲取 Profile 或處理座位查詢時發生錯誤: {e}", exc_info=True)
-        reply_text = "抱歉，無法自動讀取您的名稱\n請直接輸入您的【中文全名】來查詢座位"
+        reply_text = "很抱歉，無法自動讀取您的名稱\n請直接輸入您的【中文全名】來查詢座位"
         get_line_bot_api().reply_message(
             ReplyMessageRequest(
                 reply_token=reply_token,
@@ -192,7 +192,7 @@ def handle_stateful_reply(user_id: str, text: str, reply_token: str) -> bool:
             logger.info(f"使用者 {user_id} 的對話狀態因逾時({config.STATE_EXPIRATION_SECONDS}秒)而被清除")
             firestore_handler.delete_dialogue_state(config.DIALOGUE_STATE_COLLECTION, user_id)
             
-            timeout_message = "您的操作等待時間過長，對話已自動結束。\n請重新開始，例如：直接輸入您的【中文全名】"
+            timeout_message = "您的操作等待時間過長，對話已自動結束\n請重新開始，例如：直接輸入您的【中文全名】"
             get_line_bot_api().reply_message(ReplyMessageRequest(
                 reply_token=reply_token,
                 messages=[TextMessage(text=timeout_message)]
@@ -229,7 +229,7 @@ def handle_stateful_reply(user_id: str, text: str, reply_token: str) -> bool:
         return True
 
     except (ValueError, TypeError):
-        get_line_bot_api().reply_message(ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text="無效的數字選項，請重新輸入\n請先輸入【取消】，再直接輸入您的【中文全名】")]))
+        get_line_bot_api().reply_message(ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text="無效的數字選項，請重新輸入數字\n若要重新查詢，請先輸入【取消】，再直接輸入您的【中文全名】")]))
         return True
     
 # 處理管理員專用指令
@@ -313,7 +313,6 @@ def handle_admin_commands(user_id: str, reply_token: str, text: str) -> bool:
 
                 # 分組 guests
                 for guest in unchecked_in_guests:
-                    if guest.get('type') != 'normal': continue
                     seat = guest.get('seat', '')
                     category = guest.get('category', '')
                     name = guest.get('name', '')
@@ -428,13 +427,14 @@ def handle_admin_commands(user_id: str, reply_token: str, text: str) -> bool:
 def handle_keyword_commands(reply_token: str, text: str) -> bool:
     text_lower = text.lower()
     if text_lower in ["幫助", "help", "你好", "hi", "hello"]:
-        reply = "您好，我是彥良與岱倫的婚禮小助手！😊\n請直接輸入您的【中文全名】來查詢座位。\n\n您也可以試試看輸入：\n📜【流程】查看今日婚禮流程\n📶【wifi】取得無線網路資訊"
+        reply = "您好，我是彥良岱倫的婚禮小幫手！😊\n請直接輸入您的【中文全名】來查詢座位！\n\n您也可以試試看輸入：\n📜【時程】查看婚禮開始時間\n🔔【QA】查看停車折抵說明\n🌟【提醒】查看婚禮入場溫馨提醒"
         get_line_bot_api().reply_message(ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text=reply)]))
         return True
 
     keyword_map = {
-        "流程": "📜 婚禮流程 📜\n12:00｜迎賓接待\n12:30｜開場\n第一次進場\n第二次進場\n送客",
-        "wifi": "📶 wifi資訊\nSSID: Wedding_Guest\n密碼: 05202025",
+        "時程": "📜 今日婚禮時程 📜\n12:00 賓客入場，期待你的蒞臨\n12:30 準時開席，新人即將登場",
+        "qa": "🔔 停車折抵說明\n若有停車於飯店內\n喜宴結束前工作人員會發放停車折抵券\n請賓客離開前再於繳費機台折抵或線上折抵唷！",
+        "提醒": "🌟 婚禮入場溫馨提醒\n\n1. 婚禮時程\n12:00 賓客入場，期待你的蒞臨\n12:30 準時開席，新人即將登場\n\n2. 婚禮現場有專業攝影師，看到鏡頭不用害羞盡情微笑比✌️呦！\n\n3. 歡迎大家拍照錄影，IG限動打卡分享給我們❤️❤️\n分享標記婚禮專屬hashtag\n#幸福良緣無與倫比\n\n4. 婚禮現場有拍立得留言祝福活動，快來留言妳想對新人說的話吧～～\n\n期待與大家見面，享受美好相聚時光😛😛😛"
     }
     if text_lower in keyword_map:
         get_line_bot_api().reply_message(ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text=keyword_map[text_lower])]))
@@ -491,7 +491,7 @@ def handle_general_query(user_id: str, reply_token: str, text: str):
         fuzzy_guests = list(unique_guests.values())
         process_query_results(user_id, reply_token, fuzzy_guests, text, is_exact_search=False)
     else:
-        reply = "很抱歉，找不到您的名字。\n請問您是與哪位親友一同前來？請試著輸入同行主要聯絡人的【中文全名】"
+        reply = "很抱歉，找不到您的名字。\n請問您是與哪位親友一同前來？\n請試著輸入同行主要聯絡人的【中文全名】"
         get_line_bot_api().reply_message(ReplyMessageRequest(reply_token=reply_token, messages=[TextMessage(text=reply)]))
 
 # 根據查詢結果數量決定下一步動作
@@ -621,7 +621,7 @@ def send_seat_image_to_line(reply_token: str, guest_data: dict, force_regenerate
             ReplyMessageRequest(
                 reply_token=reply_token,
                 messages=[
-                    TextMessage(text=f"您好，{guest_name}！\n彥良與岱倫誠摯歡迎您的蒞臨。\n您的座位在此為您引導："),
+                    TextMessage(text=f"您好，{guest_name}！\n彥良與岱倫誠摯歡迎您的蒞臨\n您的座位在此為您引導："),
                     ImageMessage(original_content_url=final_image_url, preview_image_url=final_image_url)
                 ]
             )

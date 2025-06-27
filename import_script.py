@@ -105,7 +105,7 @@ def main():
         logger.critical(f"初始化 FirestoreHandler 失敗: {e}", exc_info=True)
         return
         
-    import_tables(firestore_handler)
+    #import_tables(firestore_handler)
     import_guests(firestore_handler)
 
 if __name__ == '__main__':
