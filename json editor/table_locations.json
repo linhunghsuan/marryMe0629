@@ -1,0 +1,128 @@
+{
+    "T7": {
+        "position": [3.8, 6.0],
+        "type": "normal",
+        "displayName": "男方親戚5",
+        "text_rules": "wrap_at_4"
+    },
+    "T2": {
+        "position": [4.8, 5.5],
+        "type": "normal",
+        "displayName": "男方親戚1",
+        "text_rules": "wrap_at_4"
+    },
+    "T8": {
+        "position": [3.8, 5.0],
+        "type": "normal",
+        "displayName": "男方親戚6",
+        "text_rules": "wrap_at_4"
+    },
+    "T3": {
+        "position": [4.8, 4.5],
+        "type": "normal",
+        "displayName": "男方親戚2",
+        "text_rules": "wrap_at_4"
+    },
+    "T4": {
+        "position": [4.8, 3.5],
+        "type": "normal",
+        "displayName": "男方親戚3",
+        "text_rules": "wrap_at_4"
+    },
+    "T5": {
+        "position": [4.8, 2.5],
+        "type": "normal",
+        "displayName": "男方親戚4",
+        "text_rules": "wrap_at_4"
+    },
+    "T13": {
+        "position": [1.0, 6.0],
+        "type": "normal",
+        "displayName": "女方親戚1",
+        "text_rules": "wrap_at_4"
+    },
+    "T18": {
+        "position": [0.0, 5.5],
+        "type": "normal",
+        "displayName": "女方親戚3",
+        "text_rules": "wrap_at_4"
+    },
+    "T14": {
+        "position": [1.0, 5.0],
+        "type": "normal",
+        "displayName": "女方親戚2",
+        "text_rules": "wrap_at_4"
+    },
+    "T19": {
+        "position": [0.0, 4.5],
+        "type": "normal",
+        "displayName": "女方親戚4",
+        "text_rules": "wrap_at_4"
+    },
+    "T9": {
+        "position": [3.8, 4.0],
+        "type": "normal",
+        "displayName": "淡江大學",
+        "text_rules": "wrap_at_2"
+    },
+    "T15": {
+        "position": [1.0, 4.0],
+        "type": "normal",
+        "displayName": "甜心好友桌",
+        "text_rules": "wrap_at_2"
+    },
+    "T10": {
+        "position": [3.8, 3.0],
+        "type": "normal",
+        "displayName": "西苑高中",
+        "text_rules": "wrap_at_2"
+    },
+    "T11": {
+        "position": [3.8, 2.0],
+        "type": "normal",
+        "displayName": "友達好夥伴",
+        "text_rules": "wrap_at_2"
+    },
+    "T6": {
+        "position": [4.8, 1.5],
+        "type": "normal",
+        "displayName": "男方朋友",
+        "text_rules": "wrap_at_2"
+    },
+    "T22": {
+        "position": [4.8, 0.5],
+        "type": "normal",
+        "displayName": "預備桌",
+        "text_rules": "name_only"
+    },
+    "T12": {
+        "position": [3.8, 1.0],
+        "type": "normal",
+        "displayName": "矽品1",
+        "text_rules": "wrap_at_2"
+    },
+    "T20": {
+        "position": [0.0, 2.5],
+        "type": "normal",
+        "displayName": "閃耀女神桌",
+        "text_rules": "wrap_at_2"
+    },
+    "T16": {
+        "position": [1.0, 3.0],
+        "type": "normal",
+        "displayName": "小白目俱樂部",
+        "text_rules": "wrap_at_3"
+    },
+    "T17": {
+        "position": [1.0, 1.0],
+        "type": "normal",
+        "displayName": "矽品2",
+        "text_rules": "wrap_at_2"
+    },
+    "T21": {
+        "position": [0.0, 1.0],
+        "type": "normal",
+        "displayName": "矽品3",
+        "text_rules": "wrap_at_2"
+    }
+}

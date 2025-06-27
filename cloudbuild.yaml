@@ -1,0 +1,36 @@
+steps:
+# 1. 建置容器映像檔
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-east1-docker.pkg.dev/$PROJECT_ID/marryme-repo/marryme-bot-app:latest', '.']
+
+# 2. 將映像檔推送到 Google Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-east1-docker.pkg.dev/$PROJECT_ID/marryme-repo/marryme-bot-app:latest']
+
+# 3. 部署到 Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'run'
+    - 'deploy'
+    - 'marryme-line-bot' # 服務名稱
+    - '--image=asia-east1-docker.pkg.dev/$PROJECT_ID/marryme-repo/marryme-bot-app:latest'
+    - '--region=asia-east1'
+    - '--platform=managed'
+    - '--allow-unauthenticated'
+    - '--port=8080'
+    - '--memory=512Mi'
+    - '--set-env-vars=^##^GCP_PROJECT_ID=${_GCP_PROJECT_ID}##GCS_BUCKET_NAME=${_GCS_BUCKET_NAME}##PROJECT_ID=${_PROJECT_ID}##ADMIN_USER_IDS=${_ADMIN_USER_IDS}##LINE_CHANNEL_ACCESS_TOKEN=${_LINE_CHANNEL_ACCESS_TOKEN}##LINE_CHANNEL_SECRET=${_LINE_CHANNEL_SECRET}##GCS_SERVICE_ACCOUNT_PATH=${_GCS_SERVICE_ACCOUNT_PATH}'
+
+images:
+- 'asia-east1-docker.pkg.dev/$PROJECT_ID/marryme-repo/marryme-bot-app:latest'
+
+# 替換變數 (以 _ 開頭)
+substitutions:
+  _GCP_PROJECT_ID: 'marryme-461108'
+  _GCS_BUCKET_NAME: 'marryme1140629'
+  _LINE_CHANNEL_ACCESS_TOKEN: 's83m4CfnZmIJ2DX45T+0o3J7oJDGo4Otq++7iFH2KBjmrGrLKgWs9gWmzhWwfnsCB5Kou1RHW1LbSGpnCdcDDjN4LNI6MZzzqbp6J6pGrvkW2fMKqsoaap0UZNULcEHN/MI5cWW5p465Dom3RrxKDAdB04t89/1O/w1cDnyilFU='
+  _LINE_CHANNEL_SECRET: '967524b34b7e8566c30bc4522bbb55a0'
+  _PROJECT_ID: 'yenliang_dailun_20250629'
+  _ADMIN_USER_IDS: 'Ua15360183377f4c4de54ebe40d3ac251'
+  _GCS_SERVICE_ACCOUNT_PATH: 'marryme-461108-8529a8cd30d8.json'

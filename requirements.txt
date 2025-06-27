@@ -1,0 +1,9 @@
+Flask>=2.0
+gunicorn>=20.0
+line-bot-sdk>=3.0
+google-cloud-firestore
+google-cloud-storage
+pypinyin
+thefuzz[python-Levenshtein]
+Pillow>=9.0
+python-dotenv

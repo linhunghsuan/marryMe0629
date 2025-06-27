@@ -1,0 +1,14 @@
+# 排除敏感資訊檔案
+docker run one line.txt
+marryme-461108-8529a8cd30d8.json
+.env
+
+# Node/Python/Docker常見
+node_modules/
+*.pyc
+__pycache__/
+.env.*
+*.log
+*.sqlite3
+.DS_Store
+*.swp
